@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6fb">
+  <title>Quantum Tech Monopoly</title>
+  <link rel="icon" type="image/png" href="assets/quantum-tech-icon.png" sizes="64x64">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/board.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script id="game-script" type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <img class="brand-logo" src="assets/quantum-tech-logo.png" width="660" height="220" alt="Quantum Tech Monopoly">
+      <nav aria-label="Game resources">
+        <button class="quiet" id="rules-button" type="button" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M9.5 9a2.5 2.5 0 1 1 4 2c-1 .7-1.5 1-1.5 2m0 3h.01"/>
+          </svg>
+          <span>How to play</span>
+        </button>
+        <button class="quiet" id="science-button" type="button" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 6a6 6 0 0 0-4-1.5H3v13h5a6 6 0 0 1 4 1.5 6 6 0 0 1 4-1.5h5v-13h-5A6 6 0 0 0 12 6Zm0 0v13"/>
+          </svg>
+          <span>Field guide</span>
+        </button>
+        <button class="quiet" id="sound-button" type="button" aria-pressed="false" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M11 5 6 9H3v6h3l5 4Z"/>
+            <path class="sound-waves" d="M15 9a4 4 0 0 1 0 6m3-9a8 8 0 0 1 0 12"/>
+            <path class="sound-mute" d="m15 9 6 6m0-6-6 6"/>
+          </svg>
+          <span id="sound-label">Sound off</span>
+        </button>
+        <button class="quiet" id="music-button" type="button" aria-pressed="false" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M10 18V5l10-2v12M10 9l10-2"/>
+            <ellipse cx="7" cy="18" rx="3" ry="2"/>
+            <ellipse cx="17" cy="15" rx="3" ry="2"/>
+          </svg>
+          <span id="music-label">Music off</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="load-state" id="loading" role="status">Loading the game…</div>
+    <section class="load-state panel" id="load-error" hidden>
+      <h1>Game data could not load</h1>
+      <p id="load-message" role="alert"></p>
+      <p>Open this page through an HTTP server. To run it locally, use <code>python -m http.server 8080</code> in the project folder.</p>
+      <button class="primary" id="retry-button" type="button">Try again</button>
+    </section>
+
+    <section class="lobby" id="lobby" hidden aria-labelledby="lobby-title">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span aria-hidden="true">✦</span> A QUANTUM INFORMATION GAME</p>
+          <h1 id="lobby-title" tabindex="-1">Quantum Tech<br><em>Monopoly.</em></h1>
+          <p class="hero-description">Build a quantum tech district. Invest in research sites, upgrade your labs, and see which breakthroughs survive the headlines.</p>
+          <div class="hero-facts"><span>2–4 players</span><span>Local play</span><span id="hero-rounds"></span></div>
+        </div>
+        <div class="city" id="city" aria-hidden="true"></div>
+      </div>
+      <form class="panel setup" id="setup-form">
+        <h2>Set up a game</h2>
+        <p class="muted">Take turns on this device or invite a computer opponent.</p>
+        <fieldset class="player-count">
+          <legend>Number of players</legend>
+          <label><input type="radio" name="count" value="2" checked><span>2 players</span></label>
+          <label><input type="radio" name="count" value="3"><span>3 players</span></label>
+          <label><input type="radio" name="count" value="4"><span>4 players</span></label>
+        </fieldset>
+        <div class="player-config" id="player-config"></div>
+        <p id="setup-error" class="form-error" role="alert" hidden></p>
+        <button class="primary start-game" type="submit">Start game <span aria-hidden="true">→</span></button>
+      </form>
+    </section>
+
+    <section id="play" hidden aria-labelledby="game-title">
+      <div class="game-heading">
+        <div><p class="eyebrow">THE RESEARCH DISTRICT</p><h1 id="game-title" tabindex="-1">Game board</h1></div>
+        <button class="secondary" id="new-button" type="button">New game</button>
+      </div>
+      <div class="play-layout">
+        <section class="panel board-panel" aria-label="Board and turn controls">
+          <div class="board-heading"><strong>District map</strong><span>Clockwise from Start <span aria-hidden="true">↻</span></span></div>
+          <p class="mobile-hint">Swipe the map to view every site.</p>
+          <div class="board-shell">
+            <section class="turn-bar" aria-label="Turn controls">
+              <div class="die" id="die" role="img" aria-label="Die not rolled">–</div>
+              <div class="turn-description"><p id="round-label"></p><h2 id="turn-player"></h2><p id="turn-status" role="status"></p></div>
+              <button class="primary" id="turn-button" type="button">Roll die <span aria-hidden="true">→</span></button>
+            </section>
+            <div class="board-scroll" tabindex="0" role="region" aria-label="Scrollable district map">
+              <div class="board" id="board">
+                <div class="board-center" aria-hidden="true">
+                  <div class="board-mark">✦</div>
+                  <p>QUANTUM TECH</p><strong>Monopoly</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <aside class="sidebar" aria-label="Players and game activity">
+          <section class="panel players-panel"><h2>Players</h2><div id="player-list"></div></section>
+          <section class="panel activity"><h2>Activity log</h2><ol id="log"></ol></section>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+  <footer class="site-footer"><p>CCST9077 · The Quantum Revolution</p><p>Tech Credits and property values are fictional.</p></footer>
+  <noscript><p class="load-state">Enable JavaScript to play Quantum Tech Monopoly.</p></noscript>
+  <script>
+    document.getElementById('game-script').addEventListener('error', () => {
+      document.getElementById('loading').hidden = true;
+      document.getElementById('load-error').hidden = false;
+      document.getElementById('load-message').textContent = 'The game script could not start. Check the page address and the project files.';
+      document.getElementById('retry-button').addEventListener('click', () => location.reload());
+    });
+  </script>
+</body>
+</html>
