@@ -1,0 +1,116 @@
+[
+  {
+    "id": "entanglement",
+    "name": "Entanglement Bonus",
+    "effectType": "share",
+    "target": "owned",
+    "duration": 2,
+    "description": "Share the next two rent payments from one of your sites with the next active player. Your site keeps any odd coin.",
+    "scienceText": "Entanglement produces correlations between quantum systems that ordinary shared instructions cannot reproduce in certain experiments. Each observer's local outcome is random, so entanglement alone cannot send a faster-than-light message. Sharing rent is a game analogy.",
+    "sourceIds": [
+      "TELE",
+      "IBM"
+    ]
+  },
+  {
+    "id": "decoherence",
+    "name": "Decoherence / Noise Attack",
+    "effectType": "modifier",
+    "target": "quantum",
+    "multiplier": 0.5,
+    "duration": 2,
+    "description": "One of your quantum sites charges half rent until you complete two more turns.",
+    "scienceText": "A quantum system can lose the ability to show interference when its environment interacts with it and carries away information. Physicists call this decoherence. The card's ‘attack’ is a metaphor for physical noise.",
+    "sourceIds": [
+      "IBM",
+      "ADV"
+    ]
+  },
+  {
+    "id": "qkd-success",
+    "name": "Successful QKD – Eavesdropper Detected",
+    "effectType": "credit",
+    "target": "player",
+    "amount": 120,
+    "description": "The bank awards you 120 Tech Credits.",
+    "scienceText": "In suitable QKD protocols, attempts to read the quantum signals can introduce measurable disturbance. An unknown quantum state cannot be copied perfectly. QKD distributes keys, and its security still depends on the protocol, equipment, and other safeguards.",
+    "sourceIds": [
+      "QKD",
+      "CLONE"
+    ]
+  },
+  {
+    "id": "advantage",
+    "name": "Quantum Advantage Achieved",
+    "effectType": "modifier",
+    "target": "compute",
+    "multiplier": 2,
+    "duration": 2,
+    "description": "One of your quantum computing sites charges double rent until you complete two more turns.",
+    "scienceText": "Quantum advantage means outperforming classical methods on a specified task under stated conditions. A result for one task tells us little about how quickly a quantum processor would handle ordinary jobs such as browsing or spreadsheets.",
+    "sourceIds": [
+      "ADV",
+      "IBM"
+    ]
+  },
+  {
+    "id": "hype",
+    "name": "Media Hype",
+    "effectType": "quiz",
+    "target": "player",
+    "amount": 100,
+    "description": "The bank advances 100 Tech Credits. Evaluate a claim to keep the advance.",
+    "scienceText": "Good evidence names the task, the comparison and the conditions of the experiment. Use those details to check whether a headline goes beyond what researchers actually showed.",
+    "sourceIds": [
+      "ADV"
+    ],
+    "questions": [
+      {
+        "claim": "A quantum computer is always faster than a classical computer.",
+        "answer": false,
+        "explanation": "Any advantage depends on the task, the algorithm and the comparison. Classical hardware serves many tasks well.",
+        "sourceIds": [
+          "ADV"
+        ]
+      },
+      {
+        "claim": "Entanglement by itself lets researchers send messages faster than light.",
+        "answer": false,
+        "explanation": "A local observer cannot choose their measurement result to encode a message. Comparing outcomes still requires ordinary communication.",
+        "sourceIds": [
+          "TELE"
+        ]
+      },
+      {
+        "claim": "Quantum key distribution helps establish a key, and the endpoints still need to be secured.",
+        "answer": true,
+        "explanation": "QKD addresses key distribution. Authentication, device security and how the key is used still matter.",
+        "sourceIds": [
+          "QKD"
+        ]
+      },
+      {
+        "claim": "Atomic clocks use a repeatable property of atoms as a timing reference.",
+        "answer": true,
+        "explanation": "A stable transition between atomic energy levels provides a frequency reference for an atomic clock.",
+        "sourceIds": [
+          "SENSE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "black-hole",
+    "name": "Black Hole Information Event",
+    "effectType": "risk",
+    "target": "player",
+    "amount": 200,
+    "loss": 150,
+    "probability": 0.5,
+    "description": "Pass, or take a 50% chance to gain 200 Tech Credits and a 50% chance to pay 150.",
+    "scienceText": "The information paradox asks how information could be preserved when a black hole evaporates. It connects quantum theory with gravity. The game's 50–50 wager is fictional and does not describe a probability assigned by physicists.",
+    "sourceIds": [
+      "BH"
+    ]
+  }
+]

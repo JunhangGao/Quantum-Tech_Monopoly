@@ -1,0 +1,232 @@
+[
+  {
+    "id": "classical",
+    "name": "Classical Computing Park",
+    "shortName": "Computing Park",
+    "category": "classical",
+    "price": 100,
+    "baseRent": 20,
+    "upgradeCost": 60,
+    "assetId": "000",
+    "scienceText": "Classical computers store information in bits and use logic gates to process it. They remain essential for everyday work and for controlling quantum experiments.",
+    "sourceIds": [
+      "BITS",
+      "ADV"
+    ]
+  },
+  {
+    "id": "data",
+    "name": "Data Processing Center",
+    "shortName": "Data Center",
+    "category": "classical",
+    "price": 120,
+    "baseRent": 24,
+    "upgradeCost": 70,
+    "assetId": "015",
+    "scienceText": "Classical computers collect, store, and analyze the measurement results from quantum experiments. Their ability to process ordinary data remains useful even when a quantum device is involved.",
+    "sourceIds": [
+      "BITS",
+      "ADV"
+    ]
+  },
+  {
+    "id": "sensor",
+    "name": "Quantum Sensor Lab",
+    "shortName": "Sensor Lab",
+    "category": "sensing",
+    "price": 140,
+    "baseRent": 28,
+    "upgradeCost": 80,
+    "assetId": "017",
+    "scienceText": "Quantum sensors use well-understood properties of atoms, light or other systems to measure quantities such as magnetic fields. A small change in the field can change the sensor's quantum state.",
+    "sourceIds": [
+      "SENSE"
+    ]
+  },
+  {
+    "id": "precision",
+    "name": "Precision Measurement Center",
+    "shortName": "Precision Center",
+    "category": "sensing",
+    "price": 150,
+    "baseRent": 30,
+    "upgradeCost": 90,
+    "assetId": "024",
+    "scienceText": "An atomic clock uses a stable transition between atomic energy levels as a reference. Precise timing helps systems such as satellite navigation work.",
+    "sourceIds": [
+      "SENSE",
+      "NIST"
+    ]
+  },
+  {
+    "id": "qkd",
+    "name": "QKD Network",
+    "shortName": "QKD Network",
+    "category": "comms",
+    "price": 180,
+    "baseRent": 36,
+    "upgradeCost": 100,
+    "assetId": "008",
+    "scienceText": "Quantum key distribution helps two parties establish a shared secret key. With an authenticated classical channel and suitable equipment, they can estimate disturbance before deciding whether to use the key.",
+    "sourceIds": [
+      "QKD"
+    ]
+  },
+  {
+    "id": "secure",
+    "name": "Secure Communication Hub",
+    "shortName": "Secure Comms Hub",
+    "category": "comms",
+    "price": 190,
+    "baseRent": 38,
+    "upgradeCost": 110,
+    "assetId": "010",
+    "scienceText": "A distributed key can be an ingredient in secure communication. Keeping a whole system secure also requires authentication, protected endpoints, careful implementation, and appropriate use of the key.",
+    "sourceIds": [
+      "QKD"
+    ]
+  },
+  {
+    "id": "satellite",
+    "name": "Micius-style Satellite Station",
+    "shortName": "Satellite Station",
+    "category": "comms",
+    "price": 220,
+    "baseRent": 44,
+    "upgradeCost": 120,
+    "assetId": "123",
+    "scienceText": "In 2017, Micius demonstrated quantum key distribution between a satellite and ground stations using faint pulses of light. A satellite can extend the reach of an optical link, provided the beam and receiver are precisely aligned.",
+    "sourceIds": [
+      "MICIUS"
+    ]
+  },
+  {
+    "id": "photonics",
+    "name": "Photonics Laboratory",
+    "shortName": "Photonics Lab",
+    "category": "comms",
+    "price": 230,
+    "baseRent": 46,
+    "upgradeCost": 130,
+    "assetId": "031",
+    "scienceText": "Photons are individual units of light. A photonics lab can prepare and detect light at the single-photon level, which makes light useful for carrying quantum information.",
+    "sourceIds": [
+      "NETWORK"
+    ]
+  },
+  {
+    "id": "compute",
+    "name": "Quantum Computing Laboratory",
+    "shortName": "Quantum Computing",
+    "category": "compute",
+    "price": 250,
+    "baseRent": 50,
+    "upgradeCost": 140,
+    "assetId": "116",
+    "scienceText": "A qubit is a unit of quantum information. Quantum circuits manipulate qubits so that contributions to different outcomes can reinforce or cancel each other before the final measurement.",
+    "sourceIds": [
+      "IBM"
+    ]
+  },
+  {
+    "id": "algorithms",
+    "name": "Quantum Algorithms Company",
+    "shortName": "Algorithms Co.",
+    "category": "compute",
+    "price": 260,
+    "baseRent": 52,
+    "upgradeCost": 150,
+    "assetId": "117",
+    "scienceText": "A quantum algorithm uses quantum operations to solve a particular problem. A meaningful speed comparison needs a well-defined task and a strong classical method as the baseline.",
+    "sourceIds": [
+      "IBM",
+      "ADV"
+    ]
+  },
+  {
+    "id": "correction",
+    "name": "Quantum Error Correction Lab",
+    "shortName": "Error Correction",
+    "category": "compute",
+    "price": 280,
+    "baseRent": 56,
+    "upgradeCost": 160,
+    "assetId": "124",
+    "scienceText": "Quantum error correction spreads one logical qubit across multiple physical qubits. Carefully chosen checks reveal clues about errors while preserving the information those qubits encode.",
+    "sourceIds": [
+      "EC"
+    ]
+  },
+  {
+    "id": "hybrid",
+    "name": "Hybrid Computing Center",
+    "shortName": "Hybrid Computing",
+    "category": "compute",
+    "price": 290,
+    "baseRent": 58,
+    "upgradeCost": 170,
+    "assetId": "125",
+    "scienceText": "In a hybrid workflow, a classical computer can choose settings, a quantum processor runs circuits, and classical software uses the measured results to decide what to try next.",
+    "sourceIds": [
+      "ADV"
+    ]
+  },
+  {
+    "id": "materials",
+    "name": "Quantum Materials Lab",
+    "shortName": "Materials Lab",
+    "category": "research",
+    "price": 310,
+    "baseRent": 62,
+    "upgradeCost": 180,
+    "assetId": "021",
+    "scienceText": "Researchers study materials whose properties come from quantum behavior, such as superconductors. Some materials can help build sensors or devices that control quantum information.",
+    "sourceIds": [
+      "MATERIALS",
+      "NIST"
+    ]
+  },
+  {
+    "id": "network",
+    "name": "Quantum Network Research Center",
+    "shortName": "Quantum Network",
+    "category": "comms",
+    "price": 320,
+    "baseRent": 64,
+    "upgradeCost": 190,
+    "assetId": "109",
+    "scienceText": "Quantum network researchers test ways to send quantum states and share entanglement between distant devices. Loss in optical links and the need to store quantum states make long links challenging.",
+    "sourceIds": [
+      "NETWORK",
+      "IBM"
+    ]
+  },
+  {
+    "id": "institute",
+    "name": "Advanced Quantum Research Institute",
+    "shortName": "Research Institute",
+    "category": "research",
+    "price": 350,
+    "baseRent": 70,
+    "upgradeCost": 200,
+    "assetId": "100",
+    "scienceText": "Quantum information research brings together computing, communication and measurement. A laboratory finding can demonstrate a physical effect long before researchers know how to turn it into a reliable device.",
+    "sourceIds": [
+      "NIST"
+    ]
+  },
+  {
+    "id": "blackhole",
+    "name": "Black Hole Information Research Center",
+    "shortName": "Black Hole Research",
+    "category": "theory",
+    "price": 400,
+    "baseRent": 80,
+    "upgradeCost": 230,
+    "assetId": "122",
+    "scienceText": "Quantum theory normally preserves information about a system's initial state. Hawking's picture of an evaporating black hole raises the question of where that information goes, bringing quantum theory and gravity into tension.",
+    "sourceIds": [
+      "BH"
+    ]
+  }
+]

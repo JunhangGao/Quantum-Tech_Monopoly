@@ -1,0 +1,22 @@
+{
+  "100": "assets/raw/isometric-buildings/PNG/buildingTiles_100.png",
+  "109": "assets/raw/isometric-buildings/PNG/buildingTiles_109.png",
+  "116": "assets/raw/isometric-buildings/PNG/buildingTiles_116.png",
+  "117": "assets/raw/isometric-buildings/PNG/buildingTiles_117.png",
+  "122": "assets/raw/isometric-buildings/PNG/buildingTiles_122.png",
+  "123": "assets/raw/isometric-buildings/PNG/buildingTiles_123.png",
+  "124": "assets/raw/isometric-buildings/PNG/buildingTiles_124.png",
+  "125": "assets/raw/isometric-buildings/PNG/buildingTiles_125.png",
+  "000": "assets/raw/isometric-buildings/PNG/buildingTiles_000.png",
+  "015": "assets/raw/isometric-buildings/PNG/buildingTiles_015.png",
+  "017": "assets/raw/isometric-buildings/PNG/buildingTiles_017.png",
+  "024": "assets/raw/isometric-buildings/PNG/buildingTiles_024.png",
+  "008": "assets/raw/isometric-buildings/PNG/buildingTiles_008.png",
+  "010": "assets/raw/isometric-buildings/PNG/buildingTiles_010.png",
+  "031": "assets/raw/isometric-buildings/PNG/buildingTiles_031.png",
+  "021": "assets/raw/isometric-buildings/PNG/buildingTiles_021.png",
+  "roll": "assets/raw/casino-audio/Audio/dice-throw-1.ogg",
+  "action": "assets/raw/interface-sounds/Audio/click_001.ogg",
+  "event": "assets/raw/interface-sounds/Audio/bong_001.ogg",
+  "music": "assets/music/sci-fi-puzzle-in-game-1.ogg"
+}

@@ -1,0 +1,15 @@
+{
+  "initialCash": 1500,
+  "startBonus": 200,
+  "maxRounds": 20,
+  "maxLevel": 3,
+  "rentMultipliers": [
+    1,
+    1.5,
+    2
+  ],
+  "grant": 100,
+  "maintenance": 80,
+  "liquidationRate": 0.5,
+  "aiReserve": 200
+}

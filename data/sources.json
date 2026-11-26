@@ -1,0 +1,54 @@
+{
+  "BITS": {
+    "title": "Computer History Museum · Digital Logic",
+    "url": "https://www.computerhistory.org/revolution/digital-logic/12/269"
+  },
+  "NIST": {
+    "title": "NIST · Quantum Science",
+    "url": "https://www.nist.gov/quantum-science"
+  },
+  "SENSE": {
+    "title": "NIST · Quantum Sensing Explained",
+    "url": "https://www.nist.gov/quantum-information-science/quantum-sensing-explained"
+  },
+  "QKD": {
+    "url": "https://www.enisa.europa.eu/sites/default/files/publications/Briefing_Quantum_Key_Distribution.pdf",
+    "title": "ENISA · Quantum Key Distribution"
+  },
+  "MICIUS": {
+    "title": "Liao et al. · Satellite-to-ground quantum key distribution (2017)",
+    "url": "https://www.nature.com/articles/nature23655"
+  },
+  "CLONE": {
+    "title": "NIST · No-cloning quantum animation",
+    "url": "https://www.nist.gov/image/no-cloning-quantum-animation"
+  },
+  "NETWORK": {
+    "title": "NIST · Quantum Communications and Networks",
+    "url": "https://www.nist.gov/programs-projects/quantum-communications-and-networks"
+  },
+  "IBM": {
+    "title": "IBM Quantum Learning · Courses",
+    "url": "https://quantum.cloud.ibm.com/learning/en/courses"
+  },
+  "ADV": {
+    "title": "IBM Quantum Learning · Tools for Quantum Advantage",
+    "url": "https://quantum.cloud.ibm.com/learning/en/courses/tools-for-quantum-advantage/introduction"
+  },
+  "TELE": {
+    "title": "IBM Quantum Learning · Quantum Teleportation",
+    "url": "https://quantum.cloud.ibm.com/learning/en/modules/computer-science/quantum-teleportation"
+  },
+  "MATERIALS": {
+    "title": "NIST · Nanoscale and Quantum Metrology",
+    "url": "https://www.nist.gov/quantum-measurement/objectives/nanoscale-and-quantum-metrology"
+  },
+  "BH": {
+    "title": "APS Physics · Hawking’s Black Hole Paradox",
+    "url": "https://physics.aps.org/articles/v19/156"
+  },
+  "EC": {
+    "url": "https://quantum.cloud.ibm.com/learning/en/courses/tools-for-quantum-advantage/error-mitigation",
+    "title": "IBM Quantum Learning · Error mitigation and error correction"
+  }
+}

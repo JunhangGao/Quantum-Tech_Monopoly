@@ -1,0 +1,162 @@
+[
+  {
+    "id": "tile-0",
+    "index": 0,
+    "type": "start",
+    "label": "Start"
+  },
+  {
+    "id": "tile-1",
+    "index": 1,
+    "type": "property",
+    "propertyId": "classical",
+    "label": "Classical Computing Park"
+  },
+  {
+    "id": "tile-2",
+    "index": 2,
+    "type": "event",
+    "label": "Quantum Event"
+  },
+  {
+    "id": "tile-3",
+    "index": 3,
+    "type": "property",
+    "propertyId": "data",
+    "label": "Data Processing Center"
+  },
+  {
+    "id": "tile-4",
+    "index": 4,
+    "type": "property",
+    "propertyId": "sensor",
+    "label": "Quantum Sensor Lab"
+  },
+  {
+    "id": "tile-5",
+    "index": 5,
+    "type": "property",
+    "propertyId": "precision",
+    "label": "Precision Measurement Center"
+  },
+  {
+    "id": "tile-6",
+    "index": 6,
+    "type": "grant",
+    "label": "Research Grant"
+  },
+  {
+    "id": "tile-7",
+    "index": 7,
+    "type": "property",
+    "propertyId": "qkd",
+    "label": "QKD Network"
+  },
+  {
+    "id": "tile-8",
+    "index": 8,
+    "type": "property",
+    "propertyId": "secure",
+    "label": "Secure Communication Hub"
+  },
+  {
+    "id": "tile-9",
+    "index": 9,
+    "type": "event",
+    "label": "Quantum Event"
+  },
+  {
+    "id": "tile-10",
+    "index": 10,
+    "type": "property",
+    "propertyId": "satellite",
+    "label": "Micius-style Satellite Station"
+  },
+  {
+    "id": "tile-11",
+    "index": 11,
+    "type": "property",
+    "propertyId": "photonics",
+    "label": "Photonics Laboratory"
+  },
+  {
+    "id": "tile-12",
+    "index": 12,
+    "type": "maintenance",
+    "label": "Maintenance"
+  },
+  {
+    "id": "tile-13",
+    "index": 13,
+    "type": "property",
+    "propertyId": "compute",
+    "label": "Quantum Computing Laboratory"
+  },
+  {
+    "id": "tile-14",
+    "index": 14,
+    "type": "property",
+    "propertyId": "algorithms",
+    "label": "Quantum Algorithms Company"
+  },
+  {
+    "id": "tile-15",
+    "index": 15,
+    "type": "event",
+    "label": "Quantum Event"
+  },
+  {
+    "id": "tile-16",
+    "index": 16,
+    "type": "property",
+    "propertyId": "correction",
+    "label": "Quantum Error Correction Lab"
+  },
+  {
+    "id": "tile-17",
+    "index": 17,
+    "type": "property",
+    "propertyId": "hybrid",
+    "label": "Hybrid Computing Center"
+  },
+  {
+    "id": "tile-18",
+    "index": 18,
+    "type": "rest",
+    "label": "Rest"
+  },
+  {
+    "id": "tile-19",
+    "index": 19,
+    "type": "property",
+    "propertyId": "materials",
+    "label": "Quantum Materials Lab"
+  },
+  {
+    "id": "tile-20",
+    "index": 20,
+    "type": "property",
+    "propertyId": "network",
+    "label": "Quantum Network Research Center"
+  },
+  {
+    "id": "tile-21",
+    "index": 21,
+    "type": "event",
+    "label": "Quantum Event"
+  },
+  {
+    "id": "tile-22",
+    "index": 22,
+    "type": "property",
+    "propertyId": "institute",
+    "label": "Advanced Quantum Research Institute"
+  },
+  {
+    "id": "tile-23",
+    "index": 23,
+    "type": "property",
+    "propertyId": "blackhole",
+    "label": "Black Hole Information Research Center"
+  }
+]
