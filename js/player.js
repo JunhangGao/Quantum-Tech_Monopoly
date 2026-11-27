@@ -1,8 +1,8 @@
 export const PLAYER_COLORS = {
-  violet: '#643ac5',
-  blue: '#2362c7',
-  teal: '#08776f',
-  coral: '#b33f54',
+  violet: '#62427a',
+  blue: '#24538a',
+  teal: '#1e6f5c',
+  coral: '#b84038',
 };
 
 export function validatePlayers(players) {

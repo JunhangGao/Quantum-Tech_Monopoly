@@ -19,9 +19,10 @@ let board;
 let timer;
 let dialogType;
 let restoreFocus;
-let soundEnabled = false;
+let soundEnabled = true;
 let audio;
 let music;
+let musicEnabled = true;
 let count = 2;
 
 function playSound(id) {
@@ -33,8 +34,30 @@ function playSound(id) {
 }
 
 function updateMusicControl() {
-  byId('music-button').setAttribute('aria-pressed', String(Boolean(music)));
-  byId('music-label').textContent = music ? 'Music on' : 'Music off';
+  byId('music-button').setAttribute('aria-pressed', String(musicEnabled));
+  byId('music-label').textContent = musicEnabled ? 'Music on' : 'Music off';
+}
+
+function startMusic() {
+  if (!data?.assets.music || !musicEnabled) return;
+  if (!music) {
+    const track = new Audio(data.assets.music);
+    track.loop = true;
+    track.volume = 0.10;
+    music = track;
+  }
+  const track = music;
+  track.play().catch(() => {
+    if (music !== track) return;
+    music = null;
+  });
+}
+
+function stopMusic() {
+  if (music) {
+    music.pause();
+    music = null;
+  }
 }
 
 function setSetupError(message) {
@@ -102,18 +125,10 @@ function roll() {
   if (!game.roll()) return;
   playSound('roll');
   render({ rolling: true });
-  schedule(260);
+  schedule(reducedMotion.matches ? 0 : 640);
 }
 
-function move() {
-  do {
-    game.step();
-    render({ follow: true });
-  } while (game.phase === Phase.MOVING && reducedMotion.matches);
-  if (game.phase === Phase.MOVING) {
-    schedule();
-    return;
-  }
+function resolve() {
   game.resolveLanding();
   render();
   if (game.pending) {
@@ -123,6 +138,18 @@ function move() {
     if (game.current.type === 'human') turnButton.focus({ preventScroll: true });
     schedule();
   }
+}
+
+function move() {
+  do {
+    game.step();
+    render({ follow: true });
+  } while (game.phase === Phase.MOVING && reducedMotion.matches);
+  if (game.phase === Phase.MOVING || !reducedMotion.matches) {
+    schedule();
+    return;
+  }
+  resolve();
 }
 
 function decide(choice) {
@@ -155,7 +182,10 @@ function schedule(delay) {
   let defaultDelay;
   if (phase === Phase.MOVING) {
     action = move;
-    defaultDelay = 150;
+    defaultDelay = 340;
+  } else if (phase === Phase.RESOLVING) {
+    action = resolve;
+    defaultDelay = 360;
   } else if (current.type === 'ai') {
     if (phase === Phase.AWAIT_ROLL) [action, defaultDelay] = [roll, 650];
     if (phase === Phase.AWAIT_DECISION) {
@@ -196,6 +226,7 @@ form.addEventListener('submit', event => {
   byId('play').hidden = false;
   byId('game-title').focus();
   playSound('action');
+  startMusic();
   render();
   schedule();
 });
@@ -226,20 +257,9 @@ byId('sound-button').addEventListener('click', () => {
   else audio?.pause();
 });
 byId('music-button').addEventListener('click', () => {
-  if (music) {
-    music.pause();
-    music = null;
-  } else {
-    const track = new Audio(data.assets.music);
-    track.loop = true;
-    track.volume = 0.10;
-    music = track;
-    track.play().catch(() => {
-      if (music !== track) return;
-      music = null;
-      updateMusicControl();
-    });
-  }
+  musicEnabled = !musicEnabled;
+  if (musicEnabled) startMusic();
+  else stopMusic();
   updateMusicControl();
 });
 modal.addEventListener('cancel', event => {
@@ -257,6 +277,8 @@ async function init() {
     paintCity(data);
     for (const id of ['rules-button', 'science-button', 'sound-button']) byId(id).disabled = false;
     byId('music-button').disabled = !data.assets.music;
+    if (!data.assets.music) musicEnabled = false;
+    updateMusicControl();
     byId('lobby').hidden = false;
   } catch (error) {
     byId('load-message').textContent = error instanceof Error ? error.message : 'An unexpected error occurred.';

@@ -1,4 +1,4 @@
-import { art, categoryNames, node, specialTiles, token } from './board.js';
+import { art, categoryNames, node, setTokenColor, specialTiles, token } from './board.js';
 import { effectSummary } from './events.js';
 import { Phase } from './game.js';
 import { PLAYER_COLORS } from './player.js';
@@ -7,43 +7,98 @@ import { assetValue, portfolio, rentFor } from './property.js';
 export const byId = id => document.getElementById(id);
 const number = new Intl.NumberFormat('en');
 const pips = [[], [4], [0, 8], [0, 4, 8], [0, 2, 6, 8], [0, 2, 4, 6, 8], [0, 2, 3, 5, 6, 8]];
-export const credits = amount => number.format(amount) + ' TC';
+const faceRotations = {
+  1: [0, 0],
+  2: [0, -90],
+  3: [-90, 0],
+  4: [90, 0],
+  5: [0, 90],
+  6: [0, 180],
+};
+let dieSpins = 0;
 
-function option(value, text) {
-  const item = node('option', '', text);
-  item.value = value;
-  return item;
+function ensureDieCube(die) {
+  let cube = die.querySelector('.die-cube');
+  if (cube) return cube;
+  const shadow = node('span', 'die-shadow');
+  const stage = node('div', 'die-stage');
+  cube = node('div', 'die-cube');
+  for (let face = 1; face <= 6; face += 1) {
+    const side = node('div', 'die-face');
+    side.dataset.face = String(face);
+    for (const position of pips[face]) {
+      const pip = node('span', 'die-pip');
+      pip.style.gridArea = (Math.floor(position / 3) + 1) + ' / ' + (position % 3 + 1);
+      side.append(pip);
+    }
+    cube.append(side);
+  }
+  stage.append(cube);
+  die.replaceChildren(shadow, stage);
+  return cube;
 }
 
+export const credits = amount => number.format(amount) + ' TC';
+
 export function playerFields(container, roster, count) {
+  const clearError = () => container.dispatchEvent(new Event('input', { bubbles: true }));
   container.replaceChildren(...roster.slice(0, count).map((player, index) => {
     const row = node('div', 'player-row');
     const marker = token({ color: player.color, id: index + 1 });
+
+    const nameField = node('label', 'player-field');
+    nameField.append(node('span', 'player-field-label', 'Name'));
     const name = node('input');
+    name.type = 'text';
     name.maxLength = 20;
     name.autocomplete = 'off';
     name.value = player.name;
+    name.setAttribute('aria-label', 'Player ' + (index + 1) + ' name');
     name.addEventListener('input', () => { player.name = name.value; });
-    const type = node('select');
-    type.append(option('human', 'Human'), option('ai', 'Computer'));
-    type.value = player.type;
-    type.addEventListener('change', () => { player.type = type.value; });
-    const color = node('select');
-    for (const colorName of Object.keys(PLAYER_COLORS)) {
-      color.append(option(colorName, colorName[0].toUpperCase() + colorName.slice(1)));
-    }
-    color.value = player.color;
-    color.addEventListener('change', () => {
-      player.color = color.value;
-      marker.style.setProperty('--token-color', PLAYER_COLORS[player.color]);
+    nameField.append(name);
+
+    const typeField = node('div', 'player-field');
+    typeField.append(node('span', 'player-field-label', 'Type'));
+    const typeGroup = node('div', 'type-toggle');
+    typeGroup.setAttribute('role', 'group');
+    typeGroup.setAttribute('aria-label', 'Player ' + (index + 1) + ' type');
+    const typeButtons = [['human', 'Human'], ['ai', 'CPU']].map(([value, label]) => {
+      const btn = node('button', '', label);
+      btn.type = 'button';
+      btn.setAttribute('aria-pressed', String(player.type === value));
+      btn.addEventListener('click', () => {
+        player.type = value;
+        for (const [b, v] of typeButtons) b.setAttribute('aria-pressed', String(v === value));
+        clearError();
+      });
+      typeGroup.append(btn);
+      return [btn, value];
     });
-    row.append(marker);
-    for (const [text, input] of [['Name', name], ['Type', type], ['Color', color]]) {
-      const label = node('label', '', text);
-      input.setAttribute('aria-label', 'Player ' + (index + 1) + ' ' + text.toLowerCase());
-      label.append(input);
-      row.append(label);
-    }
+    typeField.append(typeGroup);
+
+    const colorField = node('div', 'player-field');
+    colorField.append(node('span', 'player-field-label', 'Token'));
+    const swatchGroup = node('div', 'color-swatches');
+    swatchGroup.setAttribute('role', 'group');
+    swatchGroup.setAttribute('aria-label', 'Player ' + (index + 1) + ' color');
+    const swatches = Object.entries(PLAYER_COLORS).map(([colorName, hex]) => {
+      const swatch = node('button', 'swatch');
+      swatch.type = 'button';
+      swatch.style.setProperty('--swatch-color', hex);
+      swatch.setAttribute('aria-label', colorName[0].toUpperCase() + colorName.slice(1));
+      swatch.setAttribute('aria-pressed', String(player.color === colorName));
+      swatch.addEventListener('click', () => {
+        player.color = colorName;
+        setTokenColor(marker, colorName);
+        for (const [s, c] of swatches) s.setAttribute('aria-pressed', String(c === colorName));
+        clearError();
+      });
+      swatchGroup.append(swatch);
+      return [swatch, colorName];
+    });
+    colorField.append(swatchGroup);
+
+    row.append(marker, nameField, typeField, colorField);
     return row;
   }));
 }
@@ -118,25 +173,36 @@ export function renderPanels(game) {
   }
 }
 
-export function renderTurn(game, moving = false) {
+export function renderTurn(game, rolling = false) {
   const ai = game.current.type === 'ai';
   const die = byId('die');
+  const cube = ensureDieCube(die);
   const face = game.lastRoll ?? 0;
-  if (die.dataset.face !== String(face)) {
-    die.dataset.face = face;
-    die.classList.toggle('show-pips', face > 0);
-    if (face) {
-      die.replaceChildren(...pips[face].map(position => {
-        const pip = node('span', 'die-pip');
-        pip.style.gridArea = (Math.floor(position / 3) + 1) + ' / ' + (position % 3 + 1);
-        return pip;
-      }));
-    } else {
-      die.textContent = '–';
+  if (face === 0) {
+    if (die.dataset.face !== '0') {
+      die.dataset.face = '0';
+      dieSpins = 0;
+      cube.style.transform = 'rotateX(-24deg) rotateY(30deg)';
     }
+  } else if (rolling) {
+    die.dataset.face = String(face);
+    dieSpins += 1;
+    const [rx, ry] = faceRotations[face];
+    const spinX = dieSpins * 360 + rx;
+    const spinY = dieSpins * 720 + ry;
+    die.classList.remove('rolling');
+    void die.offsetWidth;
+    die.classList.add('rolling');
+    cube.style.transform = 'rotateX(' + spinX + 'deg) rotateY(' + spinY + 'deg)';
+  } else if (die.dataset.face !== String(face)) {
+    die.dataset.face = String(face);
+    const [rx, ry] = faceRotations[face];
+    const spinX = dieSpins * 360 + rx;
+    const spinY = dieSpins * 720 + ry;
+    cube.style.transform = 'rotateX(' + spinX + 'deg) rotateY(' + spinY + 'deg)';
   }
+  if (!rolling) die.classList.remove('rolling');
   die.setAttribute('aria-label', game.lastRoll ? 'Rolled ' + game.lastRoll : 'Die not rolled');
-  die.classList.toggle('rolling', moving);
   byId('round-label').textContent = 'Round ' + game.round + ' / ' + game.data.rules.maxRounds;
   byId('turn-player').textContent = game.phase === Phase.GAME_OVER ? 'Game complete' : game.current.name + (ai ? ' · Computer' : '');
   const messages = {
@@ -156,10 +222,8 @@ export function renderTurn(game, moving = false) {
     [Phase.GAME_OVER]: 'View results',
   };
   const label = labels[game.phase] ?? 'Roll die';
-  if (button.textContent !== label + ' →') {
-    const arrow = node('span', '', ' →');
-    arrow.setAttribute('aria-hidden', 'true');
-    button.replaceChildren(document.createTextNode(label), arrow);
+  if (button.textContent !== label) {
+    button.textContent = label;
   }
   button.disabled = game.phase !== Phase.GAME_OVER && (ai || ![Phase.AWAIT_ROLL, Phase.TURN_END].includes(game.phase));
 }
@@ -203,6 +267,8 @@ function scienceBox(text) {
 
 export function showDialog(settings) {
   const modal = byId('dialog');
+  if (settings.category) modal.dataset.category = settings.category;
+  else delete modal.dataset.category;
   const body = node('div', 'dialog-content');
   const title = node('h2', '', settings.title);
   title.id = 'dialog-title';
@@ -224,7 +290,7 @@ export function propertyContent(game, id) {
     node('p', '', (owner ? 'Owned by ' + owner.name : 'Unowned') + ' · Level ' + state.level));
   const status = game.effects.filter(effect => effect.propertyId === id).map(effect => node('p', '', effectSummary(effect)));
   return {
-    title: definition.name, label: categoryNames[definition.category],
+    title: definition.name, label: categoryNames[definition.category], category: definition.category,
     content: [site, stats([['Price', credits(definition.price)], ['Current rent', credits(rentFor(game, id))],
       ['Upgrade cost', level]], 'site-stats'), ...status,
     scienceBox(definition.scienceText), sources(game.data, definition.sourceIds)],
@@ -257,7 +323,7 @@ export function decisionContent(game, act) {
     } else {
       content.push(node('p', 'muted', current.name + ' is resolving this event.'));
     }
-    return { title: card.name, label: 'Quantum event', content };
+    return { title: card.name, label: 'Quantum event', category: 'event', content };
   }
 
   const settings = propertyContent(game, pending.propertyId);
