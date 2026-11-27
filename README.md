@@ -2,6 +2,20 @@
 
 This is our game project for CCST9077 - The Quantum Revolution. It is a Monopoly-style board game based on quantum technology. Players buy research sites, upgrade them, and collect rent. There are also event cards that introduce quantum science concepts during the game.
 
+## Screenshots
+
+### Player setup
+
+Choose the number of players, enter their names, select human or computer opponents, and pick token colours before starting the game.
+
+![Player setup screen](assets/report/1.png)
+
+### Game board
+
+The main game screen shows the research sites, player balances and total assets, current turn controls, and a ledger of game events.
+
+![Game board with player information and event ledger](assets/report/2.png)
+
 ## How to run
 
 The game is made with HTML, CSS, and JavaScript. You do not need to install any npm packages to play, but you need a local server to load the game files.
